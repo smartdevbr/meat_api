@@ -5,7 +5,8 @@ defmodule MeatApiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", MeatApiWeb do
+  scope "/", MeatApiWeb do
     pipe_through :api
+    resources("/", RestaurantsController)
   end
 end
