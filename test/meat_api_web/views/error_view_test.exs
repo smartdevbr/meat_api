@@ -9,18 +9,16 @@ defmodule MeatApiWeb.ErrorViewTest do
   end
 
   test "renders 422.json" do
-    assert render(MeatApiWeb.ErrorView, "422.json", []) ==
-    %{errors: %{detail: "Bag request"}}
+    assert render(MeatApiWeb.ErrorView, "422.json", []) == %{errors: %{detail: "Bag request"}}
   end
 
   test "renders 500.json" do
     assert render(MeatApiWeb.ErrorView, "500.json", []) ==
-    %{errors: %{detail: "Internal Server Error"}}
+             %{errors: %{detail: "Internal Server Error"}}
   end
 
   test "render any other" do
     assert render(MeatApiWeb.ErrorView, "505.json", []) ==
-    %{errors: %{detail: "HTTP Version Not Supported"}}
+             %{errors: %{detail: "HTTP Version Not Supported"}}
   end
-
 end
