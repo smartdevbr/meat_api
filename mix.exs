@@ -7,7 +7,7 @@ defmodule MeatApi.MixProject do
       version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:phoenix, :gettext, :phoenix_swagger] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -42,7 +42,9 @@ defmodule MeatApi.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:arc, "~> 0.11.0"},
-      {:arc_ecto, "~> 0.11.1"}
+      {:arc_ecto, "~> 0.11.1"},
+      {:phoenix_swagger, "~> 0.8"},
+      {:ex_json_schema, "~> 0.5"}
     ]
   end
 
