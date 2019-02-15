@@ -48,7 +48,20 @@ defmodule MeatApiWeb.RestaurantsController do
     end
   end
 
-  def update(conn, params) do
+  def update(conn, %{"id" => id, "restaurant" => restaurant_params}) do
+    restaurant = Restaurants.get_restaurant!(id)
+
+    with {:ok, restaurant} <- Restaurants.update_restaurant(restaurant, restaurant_params) do
+      conn
+      |> Conn.put_status(200)
+      |> render("show.json", restaurant: restaurant)
+    else
+      {:error, %{errors: errors}} ->
+        conn
+        |> put_status(422)
+        |> render(ErrorView, "422.json", %{errors: errors})
+    end
+
     # There is no update! 
     # I will add the code in future but not in this tutorial
   end
