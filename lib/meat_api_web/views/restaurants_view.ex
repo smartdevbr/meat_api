@@ -18,8 +18,6 @@ defmodule MeatApiWeb.RestaurantsView do
   end
 
   def render("restaurant.json", %{restaurant: restaurant}) do
-    IO.inspect(restaurant)
-
     %{
       id: restaurant.id,
       image: restaurant.image,
