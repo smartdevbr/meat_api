@@ -1,50 +1,32 @@
 defmodule MeatApiWeb.RestaurantsController do
   use MeatApiWeb, :controller
+  use PhoenixSwagger
 
-  alias MeatApiWeb.ErrorView
   alias MeatApi.Restaurants
   alias MeatApi.Restaurants.Restaurant
-  alias Plug.Conn
+
+  action_fallback MeatApiWeb.FallbackController
 
   def index(conn, _params),
     do: render(conn, "index.json", restaurants: Restaurants.list_restaurants())
 
   def show(conn, %{"id" => id}) do
-    with restaurant = %Restaurant{} <- Restaurants.get_restaurant!(id) do
-      render(conn, "show.json", restaurant: restaurant)
-    else
-      nil ->
-        conn
-        |> put_status(404)
-        |> render(ErrorView, "404.json", error: "Not found")
-    end
+    render(conn, "show.json", restaurant: Restaurants.get_restaurant!(id))
   end
 
-  def create(conn, params) do
-    with {:ok, restaurant} <- Restaurants.create_restaurant(params) do
+  def create(conn, %{"restaurant" => restaurant_params}) do
+    with {:ok, restaurant} <- Restaurants.create_restaurant(restaurant_params) do
       conn
-      |> Conn.put_status(201)
+      |> put_status(:created)
+      |> put_resp_header("location", Routes.restaurants_path(conn, :show, restaurant))
       |> render("show.json", restaurant: restaurant)
-    else
-      {:error, %{errors: errors}} ->
-        conn
-        |> put_status(422)
-        |> render(ErrorView, "422.json", %{errors: errors})
     end
   end
 
   def delete(conn, %{"id" => id}) do
     with restaurant = %Restaurant{} <- Restaurants.get_restaurant!(id) do
       Restaurants.delete_restaurant(restaurant)
-
-      conn
-      |> Conn.put_status(204)
-      |> Conn.send_resp(:no_content, "")
-    else
-      nil ->
-        conn
-        |> put_status(404)
-        |> render(ErrorView, "404.json", error: "Not found")
+      send_resp(conn, :no_content, "")
     end
   end
 
@@ -52,17 +34,7 @@ defmodule MeatApiWeb.RestaurantsController do
     restaurant = Restaurants.get_restaurant!(id)
 
     with {:ok, restaurant} <- Restaurants.update_restaurant(restaurant, restaurant_params) do
-      conn
-      |> Conn.put_status(200)
-      |> render("show.json", restaurant: restaurant)
-    else
-      {:error, %{errors: errors}} ->
-        conn
-        |> put_status(422)
-        |> render(ErrorView, "422.json", %{errors: errors})
+      render(conn, "show.json", restaurant: restaurant)
     end
-
-    # There is no update! 
-    # I will add the code in future but not in this tutorial
   end
 end
