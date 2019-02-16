@@ -1,25 +1,16 @@
-defmodule MeatApiWeb.RestaurantsView do
+defmodule MeatApiWeb.RestaurantView do
   use MeatApiWeb, :view
-  alias MeatApiWeb.RestaurantsView
+  alias MeatApiWeb.RestaurantView
 
   def render("index.json", %{restaurants: restaurants}) do
-    %{data: render_many(restaurants, RestaurantsView, "restaurant.json")}
+    %{data: render_many(restaurants, RestaurantView, "restaurant.json")}
   end
 
   def render("show.json", %{restaurant: restaurant}) do
-    %{
-      data: %{
-        id: restaurant.id,
-        image: restaurant.image,
-        name: restaurant.name,
-        description: restaurant.description
-      }
-    }
+    %{data: render_one(restaurant, RestaurantView, "restaurant.json")}
   end
 
   def render("restaurant.json", %{restaurant: restaurant}) do
-    IO.inspect(restaurant)
-
     %{
       id: restaurant.id,
       image: restaurant.image,

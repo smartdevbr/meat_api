@@ -1,4 +1,4 @@
-defmodule MeatApiWeb.RestaurantsControllerTest do
+defmodule MeatApiWeb.RestaurantControllerTest do
   use MeatApiWeb.ConnCase, async: true
 
   alias MeatApi.Restaurants
@@ -28,16 +28,16 @@ defmodule MeatApiWeb.RestaurantsControllerTest do
 
   describe "index" do
     test "list all restaurants", %{conn: conn} do
-      conn = get(conn, Routes.restaurants_path(conn, :index))
+      conn = get(conn, Routes.restaurant_path(conn, :index))
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create restaurant" do
     test "renders restaurant when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.restaurants_path(conn, :create), restaurant: @create_attrs)
+      conn = post(conn, Routes.restaurant_path(conn, :create), @create_attrs)
       assert %{"id" => id} = json_response(conn, 201)["data"]
-      conn = get(conn, Routes.restaurants_path(conn, :show, id))
+      conn = get(conn, Routes.restaurant_path(conn, :show, id))
 
       assert %{
                "id" => id,
@@ -48,7 +48,7 @@ defmodule MeatApiWeb.RestaurantsControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.restaurants_path(conn, :create), restaurant: @invalid_attrs)
+      conn = post(conn, Routes.restaurant_path(conn, :create), restaurant: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -56,11 +56,16 @@ defmodule MeatApiWeb.RestaurantsControllerTest do
   describe "update restaurant" do
     setup [:create_restaurant]
 
-    test "renders restaurant when data is valid", %{conn: conn, restaurant: %Restaurant{id: id} = restaurant} do
-      conn = put(conn, Routes.restaurants_path(conn, :update, restaurant), restaurant: @update_attrs)
+    test "renders restaurant when data is valid", %{
+      conn: conn,
+      restaurant: %Restaurant{id: id} = restaurant
+    } do
+      conn =
+        put(conn, Routes.restaurant_path(conn, :update, restaurant), restaurant: @update_attrs)
+
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get(conn, Routes.restaurants_path(conn, :show, id))
+      conn = get(conn, Routes.restaurant_path(conn, :show, id))
 
       assert %{
                "id" => id,
@@ -69,7 +74,9 @@ defmodule MeatApiWeb.RestaurantsControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, restaurant: restaurant} do
-      conn = put(conn, Routes.restaurants_path(conn, :update, restaurant), restaurant: @invalid_attrs)
+      conn =
+        put(conn, Routes.restaurant_path(conn, :update, restaurant), restaurant: @invalid_attrs)
+
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -78,13 +85,12 @@ defmodule MeatApiWeb.RestaurantsControllerTest do
     setup [:create_restaurant]
 
     test "deletes chosen test", %{conn: conn, restaurant: restaurant} do
-      conn = delete(conn, Routes.restaurants_path(conn, :delete, restaurant))
+      conn = delete(conn, Routes.restaurant_path(conn, :delete, restaurant))
       assert response(conn, 204)
 
       assert_error_sent 404, fn ->
-        get(conn, Routes.restaurants_path(conn, :show, restaurant))
+        get(conn, Routes.restaurant_path(conn, :show, restaurant))
       end
     end
   end
-
 end

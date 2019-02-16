@@ -45,6 +45,7 @@ defmodule MeatApi.MixProject do
       {:arc_ecto, "~> 0.11.1"},
       {:phoenix_swagger, "~> 0.8"},
       {:ex_json_schema, "~> 0.5"}
+      # {:cors_plug, "~> 1.4"}
     ]
   end
 
@@ -58,7 +59,10 @@ defmodule MeatApi.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      swagger: [
+        "phx.swagger.generate priv/static/swagger.json --router MeatApiWeb.Router --endpoint MeatApiWeb.Endpoint"
+      ]
     ]
   end
 end
