@@ -11,10 +11,6 @@ defmodule MeatApiWeb.ErrorView do
   # the template name. For example, "404.json" becomes
   # "Not Found".
   def template_not_found(template, _assigns) do
-    %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
+    Phoenix.Controller.status_message_from_template(template)
   end
-
-  def render("404.json", _assigns), do: %{errors: %{detail: "Not found"}}
-  def render("422.json", _assigns), do: %{errors: %{detail: "Bag request"}}
-  def render("400.json", _assigns), do: %{errors: %{detail: "Internal server error"}}
 end

@@ -26,12 +26,14 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :meat_api, MeatApiWeb.Web.Endpoint,
-  url: [host: "localhost"] # "host": "localhost:4000" in generated swagger
+  # "host": "localhost:4000" in generated swagger
+  url: [host: "localhost"]
 
 config :meat_api, :phoenix_swagger,
   swagger_files: %{
     "priv/static/swagger.json" => [
-      router: MeatApiWeb.Router     # phoenix routes will be converted to swagger paths
+      # phoenix routes will be converted to swagger paths
+      router: MeatApiWeb.Router
       # endpoint: MeatApiWeb.Endpoint  # (optional) endpoint config used to set host, port and https schemes.
     ]
   }

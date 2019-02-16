@@ -18,7 +18,8 @@ config :meat_api, MeatApiWeb.Endpoint,
 config :logger, level: :info
 
 config :meat_api, MeatApiWeb.Web.Endpoint,
-  load_from_system_env: true, # Expects url host and port to be configured in Endpoint.init callback
+  # Expects url host and port to be configured in Endpoint.init callback
+  load_from_system_env: true,
   url: [host: "example.com", port: 80]
 
 # ## SSL Support

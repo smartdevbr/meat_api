@@ -58,9 +58,7 @@ defmodule MeatApi.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"],
-      "swagger": ["phx.swagger.generate priv/static/swagger.json --router MeatApiWeb.Router --endpoint MeatApiWeb.Endpoint"]   ]
-
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

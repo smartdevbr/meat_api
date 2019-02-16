@@ -3,7 +3,6 @@ defmodule MeatApi.Factory do
 
   def create(Restaurant) do
     %Restaurant{
-      id: UUID.uuid4(),
       name: "Burguer house",
       description: "The best place to eat hamburguer in the world",
       image: "xpto"
