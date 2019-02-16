@@ -1,10 +1,12 @@
 defmodule MeatApiWeb.RestaurantsController do
   use MeatApiWeb, :controller
+  use PhoenixSwagger
 
   alias MeatApiWeb.ErrorView
   alias MeatApi.Restaurants
   alias MeatApi.Restaurants.Restaurant
   alias Plug.Conn
+
 
   def index(conn, _params),
     do: render(conn, "index.json", restaurants: Restaurants.list_restaurants())
