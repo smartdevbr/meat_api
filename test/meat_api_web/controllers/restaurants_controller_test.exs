@@ -35,7 +35,7 @@ defmodule MeatApiWeb.RestaurantsControllerTest do
 
   describe "create restaurant" do
     test "renders restaurant when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.restaurants_path(conn, :create), restaurant: @create_attrs)
+      conn = post(conn, Routes.restaurants_path(conn, :create), @create_attrs)
       assert %{"id" => id} = json_response(conn, 201)["data"]
       conn = get(conn, Routes.restaurants_path(conn, :show, id))
 
