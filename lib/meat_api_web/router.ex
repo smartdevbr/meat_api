@@ -9,7 +9,7 @@ defmodule MeatApiWeb.Router do
   scope "/", MeatApiWeb do
     pipe_through :api
     # options   "/", RestaurantsController, :options
-    resources("/", RestaurantsController)
+    resources("/", RestaurantController)
   end
 
   scope "/swagger" do

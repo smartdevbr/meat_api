@@ -1,4 +1,4 @@
-defmodule MeatApiWeb.RestaurantsController do
+defmodule MeatApiWeb.RestaurantController do
   use MeatApiWeb, :controller
   use PhoenixSwagger
 
@@ -91,7 +91,7 @@ defmodule MeatApiWeb.RestaurantsController do
     with {:ok, restaurant} <- Restaurants.create_restaurant(restaurant_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.restaurants_path(conn, :show, restaurant))
+      |> put_resp_header("location", Routes.restaurant_path(conn, :show, restaurant))
       |> render("show.json", restaurant: restaurant)
     end
   end
