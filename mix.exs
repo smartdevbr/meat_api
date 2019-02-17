@@ -44,7 +44,8 @@ defmodule MeatApi.MixProject do
       {:arc, "~> 0.11.0"},
       {:arc_ecto, "~> 0.11.1"},
       {:phoenix_swagger, "~> 0.8"},
-      {:ex_json_schema, "~> 0.5"}
+      {:ex_json_schema, "~> 0.5"},
+      {:distillery, "~> 2.0", runtime: false}
       # {:cors_plug, "~> 1.4"}
     ]
   end

@@ -15,7 +15,9 @@ config :meat_api, MeatApiWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "wU2sBlI4cjM3LyOpOmIoSRpl9GSEeO3CPX1yJP0Hb7Rp1TUz8aJK2bRcw/IPIGms",
   render_errors: [view: MeatApiWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: MeatApi.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: MeatApi.PubSub, adapter: Phoenix.PubSub.PG2],
+  server: true, 
+  secret_key_base: "${SECRET_KEY_BASE}"
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -24,6 +26,16 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+config :meat_api, MeatApi.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: "${DATABASE_URL}",
+  ssl: true,
+  # username: "postgres",
+  # password: "postgres",
+  database: "",
+  pool_size: 1
+
 
 # config :meat_api, MeatApiWeb.Web.Endpoint,
 # "host": "localhost:4000" in generated swagger
@@ -39,6 +51,8 @@ config :meat_api, :phoenix_swagger,
     ]
   }
 
+
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env()}.exs"
+# import_config "#{Mix.env()}.exs"
